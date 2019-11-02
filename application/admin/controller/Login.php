@@ -39,8 +39,6 @@ class Login extends Controller
             $result['code']=10002;
             $result['msg']="注册失败!";
         }
-
-
         return json($result);
     }
 }
