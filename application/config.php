@@ -244,4 +244,12 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    'captcha' => [
+        'fontSize' => 18,
+        'imageH' => 30,
+        'imageW' =>100,
+        'length' => 5,
+        'reset' => true
+    ]
+
 ];
