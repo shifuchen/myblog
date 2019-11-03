@@ -48,7 +48,6 @@ class Login extends Controller
             $data=input('post.');
             $result=null;
             $adminData=getRSAEncode($data['param']);
-                Log::error($adminData);
             if($admin->login($adminData)==3){
                 $result['code']=0;
                 $result['msg']="登录成功!";
