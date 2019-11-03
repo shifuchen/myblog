@@ -87,7 +87,6 @@
             ,method: 'get'
             ,acceptMime: 'image/*'
             ,done: function(res){
-                console.log(res);
                 $(this.item).prev("div").children("input").val(res.url)
             }
         });

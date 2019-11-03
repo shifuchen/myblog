@@ -20,7 +20,13 @@
                 <div class="layui-card-header">设置我的资料</div>
                 <div class="layui-card-body" pad15>
 
-                    <div class="layui-form" lay-filter="">
+                    <div class="layui-form" lay-filter="layuiadmin-form-admin">
+                        <div class="layui-form-item" style="display: none">
+                            <label class="layui-form-label">ID</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="id"  placeholder="ID" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">我的角色</label>
                             <div class="layui-input-inline">
@@ -36,7 +42,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">用户名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="loginname"  readonly class="layui-input">
+                                <input type="text" name="loginname" lay-verify="loginname" readonly class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>
                         </div>
@@ -59,10 +65,10 @@
                                 <input name="avatar" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址"  class="layui-input">
                             </div>
                             <div class="layui-input-inline layui-btn-container" style="width: auto;">
-                                <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
+                                <button type="button" class="layui-btn layui-btn-primary" id="layuiadmin-upload-useradmin">
                                     <i class="layui-icon">&#xe67c;</i>上传图片
                                 </button>
-                                <button class="layui-btn layui-btn-primary" layadmin-event="avartatPreview">查看图片</button >
+                                <button class="layui-btn layui-btn-primary" layadmin-event="viewimg">查看图片</button >
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -90,7 +96,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -103,24 +108,38 @@
         base: '__STATIC__/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'set','form'],function () {
+    }).use(['index', 'form','upload'],function () {
         var $=layui.$
             ,form = layui.form
             ,upload = layui.upload ;
-    });
 
-    var adminData={$adminData};
-    form.val("layuiadmin-form-admin", {
-        "id":adminData.id
-        ,"loginname": adminData.loginname
-        ,"telphone": adminData.telphone
-        ,"email":adminData.email
-        ,"role":adminData.role
-        ,"email":adminData.email
-        ,"switch":adminData.check
-    });
+        var adminData={$adminData};
+        form.val("layuiadmin-form-admin", {
+            "id":adminData.id
+            ,"loginname": adminData.loginname
+            ,"telphone": adminData.telphone
+            ,"email":adminData.email
+            ,"role":adminData.role
+            ,"switch":adminData.check
+        });
+        form.on('submit(setmyinfo)',function (obj) {
+            console.log(obj.field);
+        });
+        upload.render({
+            elem: '#layuiadmin-upload-useradmin'
+            ,url:"{:url('admin/tools/uploadimage')}"
+            ,accept: 'images'
+            ,method: 'get'
+            ,acceptMime: 'image/*'
+            ,done: function(res){
+                document.getElementById("LAY_avatarSrc").value=res.url;
+            }
+        });
+
+        form.render();
 
 
+    })
 </script>
 </body>
 </html>
