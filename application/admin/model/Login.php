@@ -15,7 +15,7 @@ class Login extends Model
             'captcha|验证码'=>'require|captcha'
         ]);
         if (!$validate->check($data)) {
-            dump($validate->getError());
+            return 4;
         }
         $user = Db::name('adminuser')->where('loginname','=',$data['username'])->find();
         if($user){

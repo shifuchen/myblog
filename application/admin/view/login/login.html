@@ -129,14 +129,14 @@
                         if(data.code==10004){
                             layer.msg(data.msg, {
                                 icon: 5,//失败的表情
-                                time: 3000 //1秒关闭（如果不配置，默认是3秒）
+                                time: 1000 //1秒关闭（如果不配置，默认是3秒）
                             }, function(){
                                 document.getElementById("LAY-user-get-vercode").value="";
                             });
                         }else{
                             layer.msg(data.msg, {
                                 icon: 5,//失败的表情
-                                time: 3000 //1秒关闭（如果不配置，默认是3秒）
+                                time: 1000 //1秒关闭（如果不配置，默认是3秒）
                             }, function(){
                                 location.reload();
                             });

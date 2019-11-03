@@ -280,7 +280,18 @@ class User extends Common
             $where['id']=$id;
             $where['password']=md5($data['oldPassword']);
             $adminData=Db::name("adminuser")->where($where)->find();
-
+            $result=null;
+            if(isset($adminData)){
+                $count=Db::name("adminuser")->where($where)->update(['password'=>md5($data['password'])]);
+                if($count>0){
+                    $result['code']=0;
+                    $result['msg']="密码已修改,请重新登录!";
+                }
+            }else{
+                $result['code']=20001;
+                $result['msg']="原始密码不正确,请重新输入!";
+            }
+            return $result;
     }
 
 }
