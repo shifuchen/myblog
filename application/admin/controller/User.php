@@ -258,6 +258,10 @@ class User extends Common
         $id=$data['id'];
         $data['updatetime']=time();
         isset($data['switch'])?$data['check']=1: $data['check']=0;
+        if(isset($data['memo'])){
+            unset($data['check']);
+            unset($data['file']);
+        }
         unset($data['switch']);
         $count= Db::name('adminuser')->where('id',$id)->update($data);
         if($count>0){
