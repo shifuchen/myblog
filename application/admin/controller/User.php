@@ -273,5 +273,14 @@ class User extends Common
         }
         return json($result);
     }
+    public function editPass(Request $request){
+            $id=Session::get("uid");
+            $data=$request->post();
+            $where=null;
+            $where['id']=$id;
+            $where['password']=md5($data['oldPassword']);
+            $adminData=Db::name("adminuser")->where($where)->find();
+
+    }
 
 }
