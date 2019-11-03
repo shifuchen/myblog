@@ -22,6 +22,7 @@ class Login extends Model
             if($user['password'] == md5($data['password'])){
                 session('username', $user['loginname']);
                 session('uid', $user['id']);
+                session('userinfo',$user['loginname'].$user['nickname'].$user['role'].time());
                 return 3;
             }else{
                 return 2;//密码错误
