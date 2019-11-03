@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="__STATIC__/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__STATIC__/layuiadmin/style/admin.css" media="all">
 
-    <script>
-        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
-    </script>
 </head>
 <body class="layui-layout-body">
 
@@ -44,7 +41,7 @@
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
                 <li class="layui-nav-item" lay-unselect>
-                    <a lay-href="{:url("admin/message/message")}" layadmin-event="message" lay-text="消息中心">
+                    <a lay-href="{:url('admin/message/message')}" layadmin-event="message" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
 
                         <!-- 如果有新消息，则显示小圆点 -->
@@ -68,11 +65,11 @@
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a href="javascript:;">
-                        <cite>贤心</cite>
+                        <cite>{$Request.session.username}</cite>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a lay-href="{:url("admin/user/userinfo")}">基本资料</a></dd>
-                        <dd><a lay-href="{:url("admin/user/password")}">修改密码</a></dd>
+                        <dd><a lay-href="{:url('admin/user/userinfo')}">基本资料</a></dd>
+                        <dd><a lay-href="{:url('admin/user/password')}">修改密码</a></dd>
                         <hr>
                         <dd layadmin-event="logout" style="text-align: center;"><a>退出</a></dd>
                     </dl>

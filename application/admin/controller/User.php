@@ -13,6 +13,7 @@ use think\Controller;
 use think\Db;
 use think\Log;
 use think\Request;
+use think\Session;
 
 class User extends Common
 {
@@ -62,7 +63,10 @@ class User extends Common
         return $this->fetch("roleform");
     }
     public function userinfo(){
-        return $this->fetch("userinfo");
+        $adminId=Session::get("uid");
+        $adminData=Db::name("adminuser")->where('id',$adminId)->find();
+        unset($adminData['password']);
+        return $this->fetch("userinfo",['adminData'=>json_encode($adminData,true)]);
     }
     public function password(){
         return $this->fetch("password");

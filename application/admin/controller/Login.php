@@ -54,8 +54,10 @@ class Login extends Controller
             }else if($admin->login($adminData)==4){
                 $result['code']=10004;
                 $result['msg']="验证码错误!";
-            }
-            else{
+            }else if($admin->login($adminData)==5){
+                $result['code']=10005;
+                $result['msg']="您的账户未审核!请联系管理员进行审核。";
+            }else{
                 $result['code']=10003;
                 $result['msg']="用户名或密码错误!";
             }

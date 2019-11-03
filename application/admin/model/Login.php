@@ -19,7 +19,9 @@ class Login extends Model
         }
         $user = Db::name('adminuser')->where('loginname','=',$data['username'])->find();
         if($user){
-            if($user['password'] == md5($data['password'])){
+            if($user['check']!=1){
+                return 5;
+            }else if($user['password'] == md5($data['password'])){
                 session('username', $user['loginname']);
                 session('uid', $user['id']);
                 session('userinfo',$user['loginname'].$user['nickname'].$user['role'].time());

@@ -24,7 +24,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">我的角色</label>
                             <div class="layui-input-inline">
-                                <select name="role" lay-verify="">
+                                <select name="role" lay-verify="role">
                                     <option value="1" selected>超级管理员</option>
                                     <option value="2" disabled>普通管理员</option>
                                     <option value="3" disabled>审核员</option>
@@ -36,14 +36,14 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">用户名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" value="xianxin" readonly class="layui-input">
+                                <input type="text" name="loginname"  readonly class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">昵称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="nickname" value="贤心" lay-verify="nickname" autocomplete="off" placeholder="请输入昵称" class="layui-input">
+                                <input type="text" name="nickname" lay-verify="nickname" autocomplete="off" placeholder="请输入昵称" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -56,7 +56,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">头像</label>
                             <div class="layui-input-inline">
-                                <input name="avatar" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址" value="http://cdn.layui.com/avatar/168.jpg" class="layui-input">
+                                <input name="avatar" lay-verify="required" id="LAY_avatarSrc" placeholder="图片地址"  class="layui-input">
                             </div>
                             <div class="layui-input-inline layui-btn-container" style="width: auto;">
                                 <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
@@ -68,19 +68,19 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">手机</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="cellphone" value="" lay-verify="phone" autocomplete="off" class="layui-input">
+                                <input type="text" name="telphone"  lay-verify="telphone" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">邮箱</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" value="" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="email"  lay-verify="email" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">备注</label>
                             <div class="layui-input-block">
-                                <textarea name="remarks" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                <textarea name="memo" placeholder="请输入内容" class="layui-textarea"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -103,12 +103,24 @@
         base: '__STATIC__/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'form','upload'],function () {
+    }).use(['index', 'set','form'],function () {
         var $=layui.$
-        ,form = layui.form
-        ,upload = layui.upload ;
-
+            ,form = layui.form
+            ,upload = layui.upload ;
     });
+
+    var adminData={$adminData};
+    form.val("layuiadmin-form-admin", {
+        "id":adminData.id
+        ,"loginname": adminData.loginname
+        ,"telphone": adminData.telphone
+        ,"email":adminData.email
+        ,"role":adminData.role
+        ,"email":adminData.email
+        ,"switch":adminData.check
+    });
+
+
 </script>
 </body>
 </html>
