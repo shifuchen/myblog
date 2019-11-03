@@ -245,11 +245,14 @@ return [
         'list_rows' => 15,
     ],
     'captcha' => [
-        'fontSize' => 18,
+        'codeSet' => '2345678abcdefhijkpqrstACDEFGHIJKLMNOP',
+        'fontSize' => 16,
+        //是否画混扰曲线
+        'useCurve' => true,
         'imageH' => 30,
-        'imageW' =>100,
-        'length' => 5,
-        'reset' => true
-    ]
-
+        'imageW' => 140,
+        'length' => 4,
+        //验证成功后是否重置
+        'reset' => true,
+    ],
 ];

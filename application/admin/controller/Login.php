@@ -44,18 +44,24 @@ class Login extends Controller
     public function loginSys()
     {
         if(request()->isPost()){
-            $admin = new Admin();
+            $admin = new \app\admin\model\Login();
             $data=input('post.');
-            if($admin->login($data)==3){
-                $this->success("信息正确,正在为您跳转",'index/index');
-            }else if($admin->login($data)==4){
-                $this->error('验证码错误');
+            $result=null;
+            $adminData=getRSAEncode($data['param']);
+                Log::error($adminData);
+            if($admin->login($adminData)==3){
+                $result['code']=0;
+                $result['msg']="登录成功!";
+            }else if($admin->login($adminData)==4){
+                $result['code']=10004;
+                $result['msg']="验证码错误!";
             }
             else{
-                $this->error("用户名或密码错误");
+                $result['code']=10003;
+                $result['msg']="用户名或密码错误!";
             }
         }
-        return $this->fetch();
+        return json($result);
     }
 
 }
