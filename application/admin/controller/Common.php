@@ -30,4 +30,5 @@ class Common extends Controller
         return Session::delete("userinfo");
     }
 
+
 }

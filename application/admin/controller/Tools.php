@@ -18,4 +18,22 @@ class Tools extends Controller
                 return json(['code'=>100021,'msg'=>'图片上传失败'.$img->getError(),'url'=>'']);
             }
         }
+
+        public function uploadBlog(Request $request){
+            $img=$request->file('file');
+            $info=$img->move(ROOT_PATH.'public/blog_img');
+            $result=null;
+            if($info){
+                $result['code']=0;
+                $result['msg']='图片上传成功!';
+                $result['data']['src']='/blog_img/'.$info->getSaveName();
+                $result['data']['title']='博客图片';
+            }else{
+                $result['code']=100021;
+                $result['msg']='图片上传失败!';
+                $result['data']['src']='';
+                $result['data']['title']='getError()';
+            }
+            return json($result);
+        }
 }

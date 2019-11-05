@@ -12,7 +12,7 @@
 </head>
 <style>
   .layui-form-item .layui-input-inline{
-    width:800px
+    width:85%
   }
 </style>
 <body>
@@ -27,7 +27,7 @@
   <div class="layui-form-item">
     <label class="layui-form-label">发布人</label>
     <div class="layui-input-inline">
-      <input type="text" name="author" lay-verify="required" placeholder="请输入号码" autocomplete="off" class="layui-input">
+      <input type="text" name="author" lay-verify="required" placeholder="请输入号码" autocomplete="off" value="{$Request.session.username}" class="layui-input" disabled>
     </div>
   </div>
   <div class="layui-form-item">
@@ -73,7 +73,7 @@
         var layedit = layui.layedit;
           layedit.set({
             uploadImage: {
-              url: '' //接口url
+              url: "{:url('admin/tools/uploadBlog')}"//接口url
               ,type: 'post' //默认post
             }
           });
@@ -95,6 +95,10 @@
             ,'help' //帮助
           ]
         }); //建立编辑器
+
+    form.val("",{
+
+    });
 
     //监听提交
     form.on('submit(layuiadmin-app-form-submit)', function(data){
