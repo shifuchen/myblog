@@ -108,11 +108,20 @@
                 }
             }
         });
+        var mulu = '#all';
         //监听工具条
        $(".layui-btn.layui-btn-primary").click(function () {
            var type=$(this).attr('data-types');
-           alert(type);
+           type=type.substring(0,type.indexOf('-'));
+           switch (type) {
+               case 'notice': mulu = 'LAY-app-messageNotice'; break;
+               case 'direct': mulu = 'LAY-app-messageDirect'; break;
+               case 'check': mulu = 'LAY-app-message-checkAdmin'; break;
+               default: mulu = 'LAY-app-messageAll';
+           }
+            var zuhe="checkbox("+mulu+")";
        });
+
         element.on('tab(messageAll)',function () {
             var status=$(this).attr('data-status');
             var position = '#all';
@@ -122,8 +131,7 @@
                 case 'countCheck': position = '#countCheck'; break;
                 default: position = '#all';
             }
-            getList(position, status)
-
+            getList(position, status);
         });
 
 
