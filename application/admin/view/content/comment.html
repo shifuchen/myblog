@@ -46,9 +46,8 @@
       <div style="padding-bottom: 10px;">
         <button class="layui-btn layuiadmin-btn-comm" data-type="batchdel">删除</button>
       </div>
-      <table id="LAY-app-content-comm" lay-filter="LAY-app-content-comm"></table>
+      <table id="LAY-app-contentComm" lay-filter="LAY-app-contentComm"></table>
       <script type="text/html" id="table-content-com">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
       </script>
     </div>
@@ -63,8 +62,22 @@
     index: 'lib/index' //主入口模块
   }).use(['index', 'contlist', 'table'], function(){
     var $ = layui.$
-            ,form = layui.form
-            ,table = layui.table;
+        ,form = layui.form
+        ,table = layui.table;
+            table.render({
+                elem: '#LAY-app-contentComm',
+                value:new Date()
+                ,url: 'commentList' //数据接口
+                ,page: true //开启分页
+                ,cols: [[ //表头
+                    {type: 'checkbox', fixed: 'left'}
+                    ,{field: 'id', title: 'ID', width:100, sort: true}
+                    ,{field: 'commentator', title: '评论人', width:200}
+                    ,{field: 'commContent', title: '评论内容  ', width:800}
+                    ,{field: 'createtime', title: '评论日期', width: 200, sort: true}
+                    ,{fixed: 'right', width: 200, title:"操作",align:'center', toolbar: '#table-content-com'}
+                ]]
+            });
 
 
     //监听搜索
