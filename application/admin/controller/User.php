@@ -43,7 +43,7 @@ class User extends Common
             } else {
                 $userdata['sex'] = '女';
             }
-            $userdata = json_encode($userdata, true);
+            $userdata  = json_encode($userdata, true);
             $tiaozhuan = $this->fetch("userform", ['userdata' => $userdata]);
         } else {
             $tiaozhuan = $this->fetch("userform", ['userdata' => "''"]);
@@ -76,7 +76,7 @@ class User extends Common
 
     public function userinfo()
     {
-        $adminId = Session::get("uid");
+        $adminId   = Session::get("uid");
         $adminData = Db::name("adminuser")->where('id', $adminId)->find();
         unset($adminData['password']);
         return $this->fetch("userinfo", ['adminData' => json_encode($adminData, true)]);
@@ -105,9 +105,9 @@ class User extends Common
 
     public function userList()
     {
-        $user = new \app\admin\model\User();
-        $page = input("get.page") ? input("get.page") : 1;
-        $page = intval($page);
+        $user  = new \app\admin\model\User();
+        $page  = input("get.page") ? input("get.page") : 1;
+        $page  = intval($page);
         $limit = input("get.limit") ? input("get.limit") : 1;
         $limit = intval($limit);
         $start = $limit * ($page - 1);
@@ -124,7 +124,7 @@ class User extends Common
         if (input("get.sex") != 0) {
             $where['sex'] = input("sex");
         }
-        $field = [
+        $field         = [
             'id',
             'username',
             'avatar',
@@ -135,12 +135,12 @@ class User extends Common
             'FROM_UNIXTIME(createtime,"%Y-%m-%d") as createtime',
             'FROM_UNIXTIME(updatetime,"%Y-%m-%d") as updatetime',
         ];
-        $cate_list = Db::name("user")->limit($start, $limit)->where($where)->field($field)->select();
-        $count = Db::name("user")->limit($start, $limit)->where($where)->count();
-        $list["msg"] = "";
-        $list["code"] = 0;
+        $cate_list     = Db::name("user")->limit($start, $limit)->where($where)->field($field)->select();
+        $count         = Db::name("user")->limit($start, $limit)->where($where)->count();
+        $list["msg"]   = "";
+        $list["code"]  = 0;
         $list["count"] = $count;
-        $list["data"] = $cate_list;
+        $list["data"]  = $cate_list;
         if (empty($cate_list)) {
             $list["msg"] = "暂无数据";
         }
@@ -158,15 +158,15 @@ class User extends Common
         } else {
             $data['sex'] = 0;
         }
-        $count = $user->insert(['username' => $data['username'], 'avatar' => $data['avatar'], 'phone' => $data['phone']
-            , 'email' => $data['email'], 'sex' => $data['sex'], 'ip' => $data['ip'], 'createtime' => time(), 'updatetime' => time()]);
+        $count  = $user->insert(['username' => $data['username'], 'avatar' => $data['avatar'], 'phone' => $data['phone']
+            , 'email'                       => $data['email'], 'sex' => $data['sex'], 'ip' => $data['ip'], 'createtime' => time(), 'updatetime' => time()]);
         $result = array();
         if ($count > 0) {
             $result['code'] = 0;
-            $result['msg'] = '新增成功！';
+            $result['msg']  = '新增成功！';
         } else {
             $result['code'] = 10001;
-            $result['msg'] = '新增失败！';
+            $result['msg']  = '新增失败！';
         }
         return json($result);
     }
@@ -184,26 +184,26 @@ class User extends Common
         $id = $data['id'];
         unset($data['file']);
         $data['updatetime'] = time();
-        $count = Db::name('user')->where('id', $id)->update($data);
+        $count              = Db::name('user')->where('id', $id)->update($data);
         if ($count > 0) {
             $result['code'] = 0;
-            $result['msg'] = '修改成功！';
+            $result['msg']  = '修改成功！';
         } else {
             $result['code'] = 10001;
-            $result['msg'] = '修改失败！';
+            $result['msg']  = '修改失败！';
         }
         return json($result);
     }
 
     public function userDel()
     {
-        $user = new \app\admin\model\User();
-        $id = input("get.id");
-        $count = $user->where(['id' => $id])->delete();
+        $user   = new \app\admin\model\User();
+        $id     = input("get.id");
+        $count  = $user->where(['id' => $id])->delete();
         $result = null;
         if ($count > 0) {
             $result['code'] = 0;
-            $result['msg'] = '删除成功！';
+            $result['msg']  = '删除成功！';
         } else {
             $result['msg'] = '删除失败！';
         }
@@ -221,8 +221,8 @@ class User extends Common
      */
     public function adminLists()
     {
-        $page = input("get.page") ? input("get.page") : 1;
-        $page = intval($page);
+        $page  = input("get.page") ? input("get.page") : 1;
+        $page  = intval($page);
         $limit = input("get.limit") ? input("get.limit") : 1;
         $limit = intval($limit);
         $start = $limit * ($page - 1);
@@ -242,7 +242,7 @@ class User extends Common
         if (input("get.role") != "") {
             $where['role'] = input("get.role");
         }
-        $field = [
+        $field         = [
             'id',
             'loginname',
             'telphone',
@@ -253,12 +253,12 @@ class User extends Common
             'FROM_UNIXTIME(jointime,"%Y-%m-%d") as jointime',
             'FROM_UNIXTIME(updatetime,"%Y-%m-%d") as updatetime',
         ];
-        $cate_list = Db::name("adminuser")->limit($start, $limit)->where($where)->field($field)->select();
-        $count = Db::name("adminuser")->limit($start, $limit)->where($where)->count();
-        $list["msg"] = "";
-        $list["code"] = 0;
+        $cate_list     = Db::name("adminuser")->limit($start, $limit)->where($where)->field($field)->select();
+        $count         = Db::name("adminuser")->limit($start, $limit)->where($where)->count();
+        $list["msg"]   = "";
+        $list["code"]  = 0;
         $list["count"] = $count;
-        $list["data"] = $cate_list;
+        $list["data"]  = $cate_list;
         if (empty($cate_list)) {
             $list["msg"] = "暂无数据";
         }
@@ -269,23 +269,23 @@ class User extends Common
     {
         $data = $request->post();
         isset($data['switch']) ? $data['switch'] = 1 : $data['switch'] = 0;
-        $count = Db::name("adminuser")->insert(['loginname' => $data['loginname'], 'telphone' => $data['telphone'], 'email' => $data['email']
-            , 'role' => $data['role'], 'jointime' => time(), 'updatetime' => time(), 'check' => $data['switch']]);
+        $count  = Db::name("adminuser")->insert(['loginname' => $data['loginname'], 'telphone' => $data['telphone'], 'email' => $data['email']
+            , 'role'                                         => $data['role'], 'jointime' => time(), 'updatetime' => time(), 'check' => $data['switch']]);
         $result = array();
         if ($count > 0) {
             $result['code'] = 0;
-            $result['msg'] = '新增成功！';
+            $result['msg']  = '新增成功！';
         } else {
             $result['code'] = 10001;
-            $result['msg'] = '新增失败！';
+            $result['msg']  = '新增失败！';
         }
         return json($result);
     }
 
     public function adminEdit(Request $request)
     {
-        $data = $request->post();
-        $id = $data['id'];
+        $data               = $request->post();
+        $id                 = $data['id'];
         $data['updatetime'] = time();
         isset($data['switch']) ? $data['check'] = 1 : $data['check'] = 0;
         if (isset($data['memo'])) {
@@ -296,32 +296,32 @@ class User extends Common
         $count = Db::name('adminuser')->where('id', $id)->update($data);
         if ($count > 0) {
             $result['code'] = 0;
-            $result['msg'] = '修改成功！';
+            $result['msg']  = '修改成功！';
         } else {
             $result['code'] = 10001;
-            $result['msg'] = '修改失败！';
+            $result['msg']  = '修改失败！';
         }
         return json($result);
     }
 
     public function editPass(Request $request)
     {
-        $id = Session::get("uid");
-        $data = $request->post();
-        $where = null;
-        $where['id'] = $id;
+        $id                = Session::get("uid");
+        $data              = $request->post();
+        $where             = null;
+        $where['id']       = $id;
         $where['password'] = md5($data['oldPassword']);
-        $adminData = Db::name("adminuser")->where($where)->find();
-        $result = null;
+        $adminData         = Db::name("adminuser")->where($where)->find();
+        $result            = null;
         if (isset($adminData)) {
             $count = Db::name("adminuser")->where($where)->update(['password' => md5($data['password'])]);
             if ($count > 0) {
                 $result['code'] = 0;
-                $result['msg'] = "密码已修改,请重新登录!";
+                $result['msg']  = "密码已修改,请重新登录!";
             }
         } else {
             $result['code'] = 20001;
-            $result['msg'] = "原始密码不正确,请重新输入!";
+            $result['msg']  = "原始密码不正确,请重新输入!";
         }
         return $result;
     }
