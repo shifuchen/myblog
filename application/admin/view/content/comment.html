@@ -85,7 +85,7 @@
       var field = data.field;
 
       //执行重载
-      table.reload('LAY-app-content-comm', {
+      table.reload('LAY-app-contentComm', {
         where: field
       });
     });
@@ -101,14 +101,6 @@
         }
 
         layer.confirm('确定删除吗？', function(index) {
-
-          //执行 Ajax 后重载
-          /*
-          admin.req({
-            url: 'xxx'
-            //,……
-          });
-          */
           table.reload('LAY-app-content-comm');
           layer.msg('已删除');
         });

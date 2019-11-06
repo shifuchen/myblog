@@ -105,8 +105,6 @@
       url: "{:url('admin/content/selectTags')}",
       type: "post",
       success: function(result) {
-
-        console.log($('#label').val());
         $.each(result['data'], function (index, item) {
           $('#label').append(new Option(item.tags, item.id));// 下拉菜单里添加元素
         });
