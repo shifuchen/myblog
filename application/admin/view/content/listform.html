@@ -33,19 +33,19 @@
   <div class="layui-form-item">
     <label class="layui-form-label">文章内容</label>
     <div class="layui-input-inline">
-      <textarea name="content" id='content' lay-verify="required" style="display: none" autocomplete="on" class="layui-textarea"></textarea>
+      <textarea name="content" id='content' lay-verify="" style="display: none" class="layui-textarea"></textarea>
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">标签</label>
     <div class="layui-input-inline">
-      <select name="label" lay-verify="required">
+      <select name="label" lay-verify="required" id="label">
         <option value="">请选择标签</option>
-        <option value="美食">美食</option>
-        <option value="新闻">新闻</option>
-        <option value="八卦">八卦</option>
-        <option value="体育">体育</option>
-        <option value="音乐">音乐</option>
+        <option value="1">美食</option>
+        <option value="2">新闻</option>
+        <option value="3">八卦</option>
+        <option value="4">体育</option>
+        <option value="5">音乐</option>
       </select>
     </div>
   </div>
@@ -96,18 +96,41 @@
           ]
         }); //建立编辑器
 
-    form.val("",{
-
-    });
-
     //监听提交
     form.on('submit(layuiadmin-app-form-submit)', function(data){
       var field = data.field; //获取提交的字段
-      var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引  
-
-      //提交 Ajax 成功后，关闭当前弹层并重载表格
-      //$.ajax({});
-      parent.layui.table.reload('LAY-app-content-list'); //重载表格
+      var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+      field['content']=layedit.getContent(index);
+      field['label_id']=field['label'];
+      field['label']=$("#label").find("option:selected").text();
+        $.ajax({
+          url:"{:url('admin/content/addContent')}",
+          type:'post',
+          data:field,
+          beforeSend:function () {
+            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+          },
+          success:function(data){
+            if(data.code == 0){
+              layer.msg(data.msg,{icon: 6,
+                time: 1000
+              },function(){
+                location.reload();
+              });//成功的表情
+            }else{
+              layer.msg(data.msg, {
+                icon: 5,//失败的表情
+                time: 3000 //1秒关闭（如果不配置，默认是3秒）
+              }, function(){
+                location.reload();
+              });
+            }
+          },
+          complete: function () {
+            layer.close(this.layerIndex);
+          },
+        });
+      parent.layui.table.reload('LAY-app-contentList'); //重载表格
       parent.layer.close(index); //再执行关闭 
     });
   })

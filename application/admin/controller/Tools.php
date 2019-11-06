@@ -32,7 +32,7 @@ class Tools extends Controller
                 $result['code']=100021;
                 $result['msg']='图片上传失败!';
                 $result['data']['src']='';
-                $result['data']['title']='getError()';
+                $result['data']['title']=$img->getError();
             }
             return json($result);
         }

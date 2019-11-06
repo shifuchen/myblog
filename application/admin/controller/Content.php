@@ -5,6 +5,9 @@ namespace app\admin\controller;
 
 
 use think\Db;
+use think\Log;
+use think\Request;
+use think\Session;
 
 class Content extends Common
 {
@@ -65,6 +68,22 @@ class Content extends Common
             $list["msg"]="暂无数据";
         }
         return json($list);
+    }
+
+    public function addContent(Request $request){
+        $data=$request->post();
+       $count= Db::name("content")->insert(['label'=>$data['label'],'title'=>$data['title'],'author'=>$data['author'],
+            'author_id'=>Session::get("uid"),'content'=>$data['content'],'label_id'=>$data['label_id'],'createtime'=>time(),'updatetime'=>time()
+        ,'status'=>'待发布']);
+       $result=null;
+       if($count>0){
+           $result['code']=0;
+           $result['msg']="文章已录入!";
+       }else{
+           $result['code']=0;
+           $result['msg']="未录入成功错误信息!";
+       }
+        return $result;
     }
 
 }
