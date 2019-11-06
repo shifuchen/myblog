@@ -14,8 +14,17 @@ class Content extends Common
     public function contentList(){
         return $this->fetch("list");
     }
-    public function listForm(){
-        return $this->fetch("listform");
+    public function listForm($id=null){
+        $tiaozhuan="";
+
+        if($id!=null){
+            $contentData=Db::name("content")->where('id',$id)->find();
+            $contentData=json_encode($contentData,true);
+            $tiaozhuan=$this->fetch('listform',['contentData'=>$contentData]);
+        }else{
+            $tiaozhuan=$this->fetch('listform',['contentData'=>"''"]);
+        }
+        return $tiaozhuan;
     }
     public function contentTags(){
         return $this->fetch("tags");
@@ -72,7 +81,7 @@ class Content extends Common
 
     public function addContent(Request $request){
         $data=$request->post();
-       $count= Db::name("content")->insert(['label'=>$data['label'],'title'=>$data['title'],'author'=>$data['author'],
+        $count= Db::name("content")->insert(['label'=>$data['label'],'title'=>$data['title'],'author'=>$data['author'],
             'author_id'=>Session::get("uid"),'content'=>$data['content'],'label_id'=>$data['label_id'],'createtime'=>time(),'updatetime'=>time()
         ,'status'=>'待发布']);
        $result=null;
@@ -84,6 +93,35 @@ class Content extends Common
            $result['msg']="未录入成功错误信息!";
        }
         return json($result);
+    }
+    public function editContent(Request $request){
+        $data=$request->post();
+        $data['updatetime']=time();
+        unset($data['file']);
+        $count=Db::name("content")->where("id",$data['id'])->update($data);
+        $result=null;
+        if($count>0){
+            $result['code']=0;
+            $result['msg']="文章已修改!";
+        }else{
+            $result['code']=10050;
+            $result['msg']="未录入成功错误信息!";
+        }
+        return json($result);
+    }
+    public function contentDel(Request $request){
+        $data=$request->post();
+        $result=null;
+        $count=Db::name("content")->where('id',$data['id'])->delete();
+        if($count>0){
+            $result['code']=0;
+            $result['msg']="数据已删除";
+        }else{
+            $result['code']=100003;
+            $result['msg']="数据删除失败!";
+        }
+        return json($result);
+
     }
 
     public function tagsList(){
@@ -116,7 +154,6 @@ class Content extends Common
         }
         return json($result);
     }
-
     public function selectTags(){
         $result=null;
 
