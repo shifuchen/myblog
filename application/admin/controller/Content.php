@@ -80,10 +80,10 @@ class Content extends Common
            $result['code']=0;
            $result['msg']="文章已录入!";
        }else{
-           $result['code']=0;
+           $result['code']=10050;
            $result['msg']="未录入成功错误信息!";
        }
-        return $result;
+        return json($result);
     }
 
 }
