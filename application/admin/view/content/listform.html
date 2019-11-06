@@ -41,11 +41,6 @@
     <div class="layui-input-inline">
       <select name="label" lay-verify="required" id="label">
         <option value="">请选择标签</option>
-        <option value="1">美食</option>
-        <option value="2">新闻</option>
-        <option value="3">八卦</option>
-        <option value="4">体育</option>
-        <option value="5">音乐</option>
       </select>
     </div>
   </div>
@@ -96,6 +91,19 @@
           ]
         }); //建立编辑器
 
+    $.ajax({
+      url: "{:url('admin/content/selectTags')}",
+      type: "post",
+      success: function(result) {
+        console.log(result);
+        $.each(result['data'], function (index, item) {
+          $('#label').append(new Option(item.tags, item.id));// 下拉菜单里添加元素
+        });
+        layui.form.render("select");
+      }
+    });
+
+
     //监听提交
     form.on('submit(layuiadmin-app-form-submit)', function(data){
       var field = data.field; //获取提交的字段
@@ -111,7 +119,6 @@
             this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
           },
           success:function(data){
-
             if(data.code == 0){
               layer.msg(data.msg,{icon: 6,
                 time: 1000

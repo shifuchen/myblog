@@ -86,4 +86,47 @@ class Content extends Common
         return json($result);
     }
 
+    public function tagsList(){
+        $page=input("get.page")?input("get.page"):1;
+        $page=intval($page);
+        $limit=input("get.limit")?input("get.limit"):1;
+        $limit=intval($limit);
+        $start=$limit*($page-1);
+        $cate_list=Db::name("tags")->limit($start,$limit)->select();
+        $count=Db::name("tags")->limit($start,$limit)->count();
+        $list["msg"]="";
+        $list["code"]=0;
+        $list["count"]=$count;
+        $list["data"]=$cate_list;
+        if(empty($cate_list)){
+            $list["msg"]="暂无数据";
+        }
+        return json($list);
+    }
+    public function tagsAdd(Request $request){
+        $tags=$request->get();
+        $count=Db::name("tags")->insert(['tags'=>$tags['tags']]);
+        $result=null;
+        if($count>0){
+            $result['code']=0;
+            $result['msg']="分类添加成功!";
+        }else{
+            $result['code']=10050;
+            $result['msg']="分类添加失败!";
+        }
+        return json($result);
+    }
+
+    public function selectTags(){
+        $result=null;
+
+        $result['data']=Db::name("tags")->select();
+        if(empty($result['data'])){
+            $result['data']="暂无数据!";
+            $result['code']=10020;
+        }else{
+            $result['code']=0;
+        }
+        return json($result);
+    }
 }

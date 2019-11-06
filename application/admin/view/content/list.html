@@ -38,13 +38,8 @@
         <div class="layui-inline">
           <label class="layui-form-label">文章标签</label>
           <div class="layui-input-inline">
-            <select name="label">
+            <select name="label" id="label">
               <option value="">请选择标签</option>
-              <option value="0">美食</option>
-              <option value="1">新闻</option>
-              <option value="2">八卦</option>
-              <option value="3">体育</option>
-              <option value="4">音乐</option>
             </select>
           </div>
         </div>
@@ -84,9 +79,9 @@
   }).extend({
     index: 'lib/index' //主入口模块
   }).use(['index', 'contlist', 'table'], function(){
-    var table = layui.table
+   var $ = layui.$,
+    table = layui.table
             ,form = layui.form;
-
 
     table.render({
       elem: '#LAY-app-contentList',
@@ -105,6 +100,18 @@
         ,{field: 'status', title: '状态', width: 180,sort:true,toolbar: '#buttonTpl'}
         ,{fixed: 'right', width: 200, title:"操作",align:'center', toolbar: '#barDemo'}
       ]]
+    });
+    $.ajax({
+      url: "{:url('admin/content/selectTags')}",
+      type: "post",
+      success: function(result) {
+
+        console.log($('#label').val());
+        $.each(result['data'], function (index, item) {
+          $('#label').append(new Option(item.tags, item.id));// 下拉菜单里添加元素
+        });
+        layui.form.render("select");
+      }
     });
 
     //监听搜索
