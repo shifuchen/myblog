@@ -5,7 +5,8 @@
     <title>layuiAdmin 网站用户</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="__STATIC__/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__STATIC__/layuiadmin/style/admin.css" media="all">
     <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
@@ -60,7 +61,7 @@
 
             <table id="user-manage" lay-filter="user-manage"></table>
             <script type="text/html" id="imgTpl">
-                <img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.avatar }}>
+                <img style="display: inline-block; width: 50%; height: 100%;" src={{ d.avatar }}>
             </script>
             <script type="text/html" id="barDemo">
                 <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -79,35 +80,35 @@
         base: '__STATIC__/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'useradmin', 'table'], function(){
+    }).use(['index', 'useradmin', 'table'], function () {
         var $ = layui.$
-            ,form = layui.form
-            ,table = layui.table;
+            , form = layui.form
+            , table = layui.table;
         //监听工具条
 
         table.render({
             elem: '#user-manage',
-            value:new Date()
-            ,url: 'userlist' //数据接口
-            ,page: true //开启分页
-            ,cols: [[ //表头
+            value: new Date()
+            , url: 'userlist' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'id', title: 'ID', width:80, sort: true}
-                ,{field: 'username', title: '用户名', width:150}
-                ,{field: 'avatar', title: '头像', width:180}
-                ,{field: 'phone', title: '电话', width:180}
-                ,{field: 'email', title: '邮箱', width: 180}
-                ,{field: 'sex', title: '性别',width: 80, sort: true}
-                ,{field: 'ip', title: 'IP', width: 170, sort: true}
-                ,{field: 'createtime', title: '创建日期', width: 180,sort:true,}
-                ,{field: 'updatetime', title: '更新日期', width: 180,sort:true,}
-                ,{fixed: 'right', width: 200, title:"操作",align:'center', toolbar: '#barDemo'}
+                , {field: 'id', title: 'ID', width: 80, sort: true}
+                , {field: 'username', title: '用户名', width: 150}
+                , {field: 'avatar', title: '头像', width: 180}
+                , {field: 'phone', title: '电话', width: 180}
+                , {field: 'email', title: '邮箱', width: 180}
+                , {field: 'sex', title: '性别', width: 80, sort: true}
+                , {field: 'ip', title: 'IP', width: 170, sort: true}
+                , {field: 'createtime', title: '创建日期', width: 180, sort: true,}
+                , {field: 'updatetime', title: '更新日期', width: 180, sort: true,}
+                , {fixed: 'right', width: 200, title: "操作", align: 'center', toolbar: '#barDemo'}
             ]]
         });
         //监听工具条事件
-        table.on('tool(user-manage)', function(obj){
+        table.on('tool(user-manage)', function (obj) {
             var data = obj.data;
-            if(obj.event === 'detail'){
+            if (obj.event === 'detail') {
                 console.log("用户详情");
                 var index = layer.open({
                     type: 2,
@@ -118,49 +119,50 @@
                     shadeClose: true,
                     shade: 0.4,
                     skin: 'layui-layer-rim',
-                    content: 'userdetail?detaildata='+data,
-                    success:function (layero,index) {
+                    content: 'userdetail?detaildata=' + data,
+                    success: function (layero, index) {
                         var body = layer.getChildFrame('body', index);
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
                         iframeWin.method(data);
                         body.find("#userdetail").val(JSON.stringify(data));
                     }
                 })
-            }else if(obj.event==='edit'){
+            } else if (obj.event === 'edit') {
                 layer.open({
                     type: 2
-                    ,title: '修改用户'
-                    ,content: 'userform.html?id='+data.id
-                    ,maxmin: true
-                    ,area: ['500px', '450px']
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index, layero){
-                        var iframeWindow = window['layui-layer-iframe'+ index]
-                            ,submitID = 'LAY-user-front-submit'
-                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+                    , title: '修改用户'
+                    , content: 'userform.html?id=' + data.id
+                    , maxmin: true
+                    , area: ['500px', '450px']
+                    , btn: ['确定', '取消']
+                    , yes: function (index, layero) {
+                        var iframeWindow = window['layui-layer-iframe' + index]
+                            , submitID = 'LAY-user-front-submit'
+                            , submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
-                        iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             var field = data.field; //获取提交的字段
-                            field['ip']=returnCitySN["cip"];
+                            field['ip'] = returnCitySN["cip"];
                             $.ajax({
-                                url:"{:url('admin/user/useredit')}",
-                                type:'post',
-                                data:field,
-                                beforeSend:function () {
-                                    this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+                                url: "{:url('admin/user/useredit')}",
+                                type: 'post',
+                                data: field,
+                                beforeSend: function () {
+                                    this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
                                 },
-                                success:function(data){
-                                    if(data.code == 0){
-                                        layer.msg(data.msg,{icon: 6,
+                                success: function (data) {
+                                    if (data.code == 0) {
+                                        layer.msg(data.msg, {
+                                            icon: 6,
                                             time: 1000
-                                        },function(){
+                                        }, function () {
                                             location.reload();
                                         });//成功的表情
-                                    }else{
+                                    } else {
                                         layer.msg(data.msg, {
                                             icon: 5,//失败的表情
                                             time: 3000 //1秒关闭（如果不配置，默认是3秒）
-                                        }, function(){
+                                        }, function () {
                                             location.reload();
                                         });
                                     }
@@ -181,30 +183,31 @@
                     }
                 });
 
-            } else if(obj.event === 'del'){
-                layer.confirm('确认删除数据吗？', function(index){
-                        $.ajax({
-                        url:"{:url('admin/user/userdel')}",
-                        type:'get',
-                        data:data,
-                        beforeSend:function () {
-                            this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+            } else if (obj.event === 'del') {
+                layer.confirm('确认删除数据吗？', function (index) {
+                    $.ajax({
+                        url: "{:url('admin/user/userdel')}",
+                        type: 'get',
+                        data: data,
+                        beforeSend: function () {
+                            this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
                         },
-                        success:function(data){
+                        success: function (data) {
                             console.log(data);
-                            if(data.code == 0){
-                                layer.msg(data.msg,{icon: 6,
+                            if (data.code == 0) {
+                                layer.msg(data.msg, {
+                                    icon: 6,
                                     time: 1000
-                                },function(){
+                                }, function () {
                                     tableSupplierLinkman.reload({
                                         elem: '#user-manage'
                                     });
                                 });//成功的表情
-                            }else{
+                            } else {
                                 layer.msg(data.msg, {
                                     icon: 5,//失败的表情
                                     time: 3000 //1秒关闭（如果不配置，默认是3秒）
-                                }, function(){
+                                }, function () {
                                     location.reload();
                                 });
                             }
@@ -215,13 +218,13 @@
                     });
                     layer.close(index);
                 });
-            } else if(obj.event === 'edit'){
-                layer.alert('编辑行：<br>'+ JSON.stringify(data))
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
             }
         });
 
         //监听搜索
-        form.on('submit(LAY-user-front-search)', function(data){
+        form.on('submit(LAY-user-front-search)', function (data) {
             var field = data.field;
 
             //执行重载
@@ -233,80 +236,82 @@
 
         //事件
         var active = {
-            batchdel: function(){
+            batchdel: function () {
                 return layer.msg('程序员正在努力开发中，请等候。');
                 var checkStatus = table.checkStatus('user-manage')
-                    ,checkData = checkStatus.data; //得到选中的数据
-                if(checkData.length === 0){
+                    , checkData = checkStatus.data; //得到选中的数据
+                if (checkData.length === 0) {
                     return layer.msg('请选择数据');
                 }
-                    layer.confirm('确定删除吗？', function(index) {
-                        $.ajax({
-                            url:"{:url('admin/user/userbatchdel')}",
-                            type:'get',
-                            data:checkData,
-                            beforeSend:function () {
-                                this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
-                            },
-                            success:function(data){
-                                if(data.code == 0){
-                                    layer.msg(data.msg,{icon: 6,
-                                        time: 1000
-                                    },function(){
-                                        location.reload();
-                                    });//成功的表情
-                                }else{
-                                    layer.msg(data.msg, {
-                                        icon: 5,//失败的表情
-                                        time: 3000 //1秒关闭（如果不配置，默认是3秒）
-                                    }, function(){
-                                        location.reload();
-                                    });
-                                }
-                            },
-                            complete: function () {
-                                layer.close(this.layerIndex);
-                            },
-                        });
-                        table.reload('user-manage');
-                        layer.msg('已删除');
+                layer.confirm('确定删除吗？', function (index) {
+                    $.ajax({
+                        url: "{:url('admin/user/userbatchdel')}",
+                        type: 'get',
+                        data: checkData,
+                        beforeSend: function () {
+                            this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
+                        },
+                        success: function (data) {
+                            if (data.code == 0) {
+                                layer.msg(data.msg, {
+                                    icon: 6,
+                                    time: 1000
+                                }, function () {
+                                    location.reload();
+                                });//成功的表情
+                            } else {
+                                layer.msg(data.msg, {
+                                    icon: 5,//失败的表情
+                                    time: 3000 //1秒关闭（如果不配置，默认是3秒）
+                                }, function () {
+                                    location.reload();
+                                });
+                            }
+                        },
+                        complete: function () {
+                            layer.close(this.layerIndex);
+                        },
                     });
+                    table.reload('user-manage');
+                    layer.msg('已删除');
+                });
             }
-            ,add: function(){
+            , add: function () {
                 layer.open({
                     type: 2
-                    ,title: '添加用户'
-                    ,content: 'userform.html'
-                    ,maxmin: true
-                    ,area: ['500px', '450px']
-                    ,btn: ['确定', '取消']
-                    ,yes: function(index, layero){
-                        var iframeWindow = window['layui-layer-iframe'+ index]
-                            ,submitID = 'LAY-user-front-submit'
-                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
+                    , title: '添加用户'
+                    , content: 'userform.html'
+                    , maxmin: true
+                    , area: ['500px', '450px']
+                    , btn: ['确定', '取消']
+                    , yes: function (index, layero) {
+                        var iframeWindow = window['layui-layer-iframe' + index]
+                            , submitID = 'LAY-user-front-submit'
+                            , submit = layero.find('iframe').contents().find('#' + submitID);
                         //监听提交
-                        iframeWindow.layui.form.on('submit('+ submitID +')', function(data){
+                        iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
                             var field = data.field; //获取提交的字段
-                            field['ip']=returnCitySN["cip"];
+                            field['ip'] = returnCitySN["cip"];
                             $.ajax({
-                                url:"{:url('admin/user/useradd')}",
-                                type:'post',
-                                data:field,
-                                beforeSend:function () {
-                                    this.layerIndex = layer.load(0, { shade: [0.5, '#393D49'] });
+                                url: "{:url('admin/user/useradd')}",
+                                type: 'post',
+                                data: field,
+                                beforeSend: function () {
+                                    this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
                                 },
-                                success:function(data){
-                                    if(data.code == 0){
-                                        layer.msg(data.msg,{icon: 6,
+                                success: function (data) {
+                                    if (data.code == 0) {
+                                        layer.msg(data.msg, {
+                                            icon: 6,
                                             time: 1000
-                                        },function(){
+                                        }, function () {
                                             location.reload();
                                         });//成功的表情
-                                    }else{
+                                    } else {
                                         layer.msg(data.msg, {
                                             icon: 5,//失败的表情
                                             time: 3000 //1秒关闭（如果不配置，默认是3秒）
-                                        }, function(){
+                                        }, function () {
                                             location.reload();
                                         });
                                     }
@@ -329,7 +334,7 @@
             }
         };
 
-        $('.layui-btn.layuiadmin-btn-useradmin').on('click', function(){
+        $('.layui-btn.layuiadmin-btn-useradmin').on('click', function () {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });

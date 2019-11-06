@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +5,8 @@
     <title>消息中心</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="__STATIC__/layuiadmin/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="__STATIC__/layuiadmin/style/admin.css" media="all">
 </head>
@@ -17,42 +16,45 @@
         <div class="layui-tab layui-tab-brief" lay-filter="messageAll">
             <ul class="layui-tab-title">
                 <li class="layui-this" data-status="all">全部消息</li>
-                <li data-status="countNotice">通知<span class="layui-badge" id="countNotice" ></span></li>
-                <li data-status="countDirect">私信<span class="layui-badge" id="countDirect" ></span></li>
-                <li data-status="countCheck">审核<span class="layui-badge" id="countCheck" ></span></li>
+                <li data-status="countNotice">通知<span class="layui-badge" id="countNotice"></span></li>
+                <li data-status="countDirect">私信<span class="layui-badge" id="countDirect"></span></li>
+                <li data-status="countCheck">审核<span class="layui-badge" id="countCheck"></span></li>
             </ul>
             <div class="layui-tab-content" lay-filter="tableTool">
                 <div class="layui-tab-item layui-show">
                     <div class="LAY-app-message-btns" style="margin-bottom: 10px;">
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="all-del" >删除</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="all-read" >标记已读</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="all-allRead" >全部已读</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="all-del">删除</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="all-read">标记已读</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="all-allRead">全部已读</button>
                     </div>
                     <table id="LAY-app-messageAll" lay-filter="LAY-app-messageAll"></table>
                 </div>
                 <div class="layui-tab-item">
                     <div class="LAY-app-message-btns" style="margin-bottom: 10px;">
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="notice-del" >删除</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="notice-read" >标记已读</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="notice-allRead" >全部已读</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="notice-del">删除</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="notice-read">标记已读</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="notice-allRead">全部已读
+                        </button>
                     </div>
                     <table id="LAY-app-messageNotice" lay-filter="LAY-app-messageNotice"></table>
                 </div>
                 <div class="layui-tab-item">
 
                     <div class="LAY-app-message-btns" style="margin-bottom: 10px;">
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="direct-del" >删除</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="direct-read" >标记已读</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="direct-allRead" >全部已读</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="direct-del">删除</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="direct-read">标记已读</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="direct-allRead">全部已读
+                        </button>
                     </div>
                     <table id="LAY-app-messageDirect" lay-filter="LAY-app-messageDirect"></table>
                 </div>
 
                 <div class="layui-tab-item">
                     <div class="LAY-app-message-btns" style="margin-bottom: 10px;">
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="check-del" >审核</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="check-read" >标记已审核</button>
-                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="check-allRead" >全部审核</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="check-del">审核</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="check-read">标记已审核</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" data-types="check-allRead">全部审核
+                        </button>
                     </div>
                     <table id="LAY-app-message-checkAdmin" lay-filter="LAY-app-message-checkAdmin"></table>
                 </div>
@@ -71,65 +73,79 @@
         base: '__STATIC__/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index', 'message'],function () {
+    }).use(['index', 'message'], function () {
         var $ = layui.$
-            ,element=layui.element
-            ,table=layui.table;
+            , element = layui.element
+            , table = layui.table;
         table.render({
             elem: '#LAY-app-messageAll',
-            value:new Date()
-            ,url: 'messageList' //数据接口
-            ,page: true //开启分页
-            ,cols: [[ //表头
+            value: new Date()
+            , url: 'messageList' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'id', title: 'ID', width:80, sort: true}
-                ,{field: 'messageTitle', title: '消息标题', width:280}
-                ,{field: 'messageType', title: '消息类型', width:180}
-                ,{field: 'content', title: '内容', width:500}
-                ,{field: 'createTime', title: '发起日期', width:180}
-                ,{field: 'createUser', title: '发起人', width:180}
-                ,{field: 'ip', title: 'IP', width: 180}
+                , {field: 'id', title: 'ID', width: 80, sort: true}
+                , {field: 'messageTitle', title: '消息标题', width: 280}
+                , {field: 'messageType', title: '消息类型', width: 180}
+                , {field: 'content', title: '内容', width: 500}
+                , {field: 'createTime', title: '发起日期', width: 180}
+                , {field: 'createUser', title: '发起人', width: 180}
+                , {field: 'ip', title: 'IP', width: 180}
             ]],
-            done:function (res) {
-                if(res.typecount.countCheck>0){
+            done: function (res) {
+                if (res.typecount.countCheck > 0) {
                     $("#countCheck").html(res.typecount.countAll);
-                }else{
-                    $("#countCheck").css("display","none");
+                } else {
+                    $("#countCheck").css("display", "none");
                 }
-                if(res.typecount.countDirect>0){
+                if (res.typecount.countDirect > 0) {
                     $("#countDirect").html(res.typecount.countDirect);
-                }else{
-                    $("#countDirect").css("display","none");
+                } else {
+                    $("#countDirect").css("display", "none");
                 }
-                if(res.typecount.countNotice>0){
+                if (res.typecount.countNotice > 0) {
                     $("#countNotice").html(res.typecount.countNotice);
-                }else{
-                    $("#countNotice").css("display","none");
+                } else {
+                    $("#countNotice").css("display", "none");
                 }
             }
         });
         var mulu = '#all';
         //监听工具条
-       $(".layui-btn.layui-btn-primary").click(function () {
-           var type=$(this).attr('data-types');
-           type=type.substring(0,type.indexOf('-'));
-           switch (type) {
-               case 'notice': mulu = 'LAY-app-messageNotice'; break;
-               case 'direct': mulu = 'LAY-app-messageDirect'; break;
-               case 'check': mulu = 'LAY-app-message-checkAdmin'; break;
-               default: mulu = 'LAY-app-messageAll';
-           }
-            var zuhe="checkbox("+mulu+")";
-       });
+        $(".layui-btn.layui-btn-primary").click(function () {
+            var type = $(this).attr('data-types');
+            type = type.substring(0, type.indexOf('-'));
+            switch (type) {
+                case 'notice':
+                    mulu = 'LAY-app-messageNotice';
+                    break;
+                case 'direct':
+                    mulu = 'LAY-app-messageDirect';
+                    break;
+                case 'check':
+                    mulu = 'LAY-app-message-checkAdmin';
+                    break;
+                default:
+                    mulu = 'LAY-app-messageAll';
+            }
+            var zuhe = "checkbox(" + mulu + ")";
+        });
 
-        element.on('tab(messageAll)',function () {
-            var status=$(this).attr('data-status');
+        element.on('tab(messageAll)', function () {
+            var status = $(this).attr('data-status');
             var position = '#all';
             switch (status) {
-                case 'countNotice': position = '#countNotice'; break;
-                case 'countDirect': position = '#countDirect'; break;
-                case 'countCheck': position = '#countCheck'; break;
-                default: position = '#all';
+                case 'countNotice':
+                    position = '#countNotice';
+                    break;
+                case 'countDirect':
+                    position = '#countDirect';
+                    break;
+                case 'countCheck':
+                    position = '#countCheck';
+                    break;
+                default:
+                    position = '#all';
             }
             getList(position, status);
         });
@@ -137,99 +153,98 @@
 
         function getList(position, status = '') {
 
-            if(position=="#all"){
+            if (position == "#all") {
                 table.render({
                     elem: '#LAY-app-messageAll',
-                    value:new Date()
-                    ,url: 'messageList' //数据接口
-                    ,page: true //开启分页
-                    ,cols: [[ //表头
+                    value: new Date()
+                    , url: 'messageList' //数据接口
+                    , page: true //开启分页
+                    , cols: [[ //表头
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'id', title: 'ID', width:80, sort: true}
-                        ,{field: 'messageTitle', title: '消息标题', width:280}
-                        ,{field: 'messageType', title: '消息类型', width:180}
-                        ,{field: 'content', title: '内容', width:500}
-                        ,{field: 'createTime', title: '发起日期', width:180}
-                        ,{field: 'createUser', title: '发起人', width:180}
-                        ,{field: 'ip', title: 'IP', width: 180}
+                        , {field: 'id', title: 'ID', width: 80, sort: true}
+                        , {field: 'messageTitle', title: '消息标题', width: 280}
+                        , {field: 'messageType', title: '消息类型', width: 180}
+                        , {field: 'content', title: '内容', width: 500}
+                        , {field: 'createTime', title: '发起日期', width: 180}
+                        , {field: 'createUser', title: '发起人', width: 180}
+                        , {field: 'ip', title: 'IP', width: 180}
                     ]],
-                    done:function (res) {
-                        if(res.typecount.countCheck>0){
+                    done: function (res) {
+                        if (res.typecount.countCheck > 0) {
                             $("#countCheck").html(res.typecount.countAll);
-                        }else{
-                            $("#countCheck").css("display","none");
+                        } else {
+                            $("#countCheck").css("display", "none");
                         }
-                        if(res.typecount.countDirect>0){
+                        if (res.typecount.countDirect > 0) {
                             $("#countDirect").html(res.typecount.countDirect);
-                        }else{
-                            $("#countDirect").css("display","none");
+                        } else {
+                            $("#countDirect").css("display", "none");
                         }
-                        if(res.typecount.countNotice>0){
+                        if (res.typecount.countNotice > 0) {
                             $("#countNotice").html(res.typecount.countNotice);
-                        }else{
-                            $("#countNotice").css("display","none");
+                        } else {
+                            $("#countNotice").css("display", "none");
                         }
                     }
                 });
-            }else if(position=='#countNotice'){
+            } else if (position == '#countNotice') {
                 table.render({
                     elem: '#LAY-app-messageNotice',
-                    value:new Date()
-                    ,url: 'messageList' //数据接口
-                    ,page: true //开启分页
-                    ,sort:['ifRead']
-                    ,where:{messageType:'通知'}
-                    ,cols: [[ //表头
+                    value: new Date()
+                    , url: 'messageList' //数据接口
+                    , page: true //开启分页
+                    , sort: ['ifRead']
+                    , where: {messageType: '通知'}
+                    , cols: [[ //表头
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'id', title: 'ID', width:80, sort: true}
-                        ,{field: 'messageTitle', title: '通知标题', width:380}
-                        ,{field: 'content', title: '内容', width:581}
-                        ,{field: 'createTime', title: '发起日期', width:180}
-                        ,{field: 'createUser', title: '发起人', width:180}
-                        ,{field: 'ip', title: 'IP', width: 180}
+                        , {field: 'id', title: 'ID', width: 80, sort: true}
+                        , {field: 'messageTitle', title: '通知标题', width: 380}
+                        , {field: 'content', title: '内容', width: 581}
+                        , {field: 'createTime', title: '发起日期', width: 180}
+                        , {field: 'createUser', title: '发起人', width: 180}
+                        , {field: 'ip', title: 'IP', width: 180}
                     ]]
                 });
-            }else if(position=='#countDirect'){
+            } else if (position == '#countDirect') {
                 table.render({
                     elem: '#LAY-app-messageDirect',
-                    value:new Date()
-                    ,url: 'messageList' //数据接口
-                    ,page: true //开启分页
-                    ,where:{messageType:'私信'}
-                    ,cols: [[ //表头
+                    value: new Date()
+                    , url: 'messageList' //数据接口
+                    , page: true //开启分页
+                    , where: {messageType: '私信'}
+                    , cols: [[ //表头
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'id', title: 'ID', width:80, sort: true}
-                        ,{field: 'messageTitle', title: '标题', width:380}
-                        ,{field: 'content', title: '内容', width:600}
-                        ,{field: 'createTime', title: '发起日期', width:180}
-                        ,{field: 'createUser', title: '发起人', width:180}
-                        ,{field: 'ip', title: 'IP', width: 180}
+                        , {field: 'id', title: 'ID', width: 80, sort: true}
+                        , {field: 'messageTitle', title: '标题', width: 380}
+                        , {field: 'content', title: '内容', width: 600}
+                        , {field: 'createTime', title: '发起日期', width: 180}
+                        , {field: 'createUser', title: '发起人', width: 180}
+                        , {field: 'ip', title: 'IP', width: 180}
                     ]]
                 });
-            }else{
+            } else {
                 table.render({
                     elem: '#LAY-app-message-checkAdmin',
-                    value:new Date()
-                    ,url: 'messageList' //数据接口
-                    ,page: true //开启分页
-                    ,where:{messageType:'审核'}
-                    ,cols: [[ //表头
+                    value: new Date()
+                    , url: 'messageList' //数据接口
+                    , page: true //开启分页
+                    , where: {messageType: '审核'}
+                    , cols: [[ //表头
                         {type: 'checkbox', fixed: 'left'}
-                        ,{field: 'id', title: 'ID', width:80, sort: true}
-                        ,{field: 'messageTitle', title: '标题', width:180}
-                        ,{field: 'content', title: '内容', width:280}
-                        ,{field: 'createTime', title: '发起日期', width:150}
-                        ,{field: 'createUser', title: '发起人', width:150}
-                        ,{field: 'ip', title: 'IP', width: 180}
-                        ,{field: 'checkUser', title: '审核人', width: 180}
-                        ,{field: 'checkTime', title: '审核日期', width: 180}
-                        ,{fixed: 'right', width: 200, title:"操作",align:'center', toolbar: '#barDemo'}
+                        , {field: 'id', title: 'ID', width: 80, sort: true}
+                        , {field: 'messageTitle', title: '标题', width: 180}
+                        , {field: 'content', title: '内容', width: 280}
+                        , {field: 'createTime', title: '发起日期', width: 150}
+                        , {field: 'createUser', title: '发起人', width: 150}
+                        , {field: 'ip', title: 'IP', width: 180}
+                        , {field: 'checkUser', title: '审核人', width: 180}
+                        , {field: 'checkTime', title: '审核日期', width: 180}
+                        , {fixed: 'right', width: 200, title: "操作", align: 'center', toolbar: '#barDemo'}
                     ]],
                 });
 
             }
         }
-
 
 
     });

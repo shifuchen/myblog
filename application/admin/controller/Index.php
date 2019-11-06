@@ -13,11 +13,13 @@ use think\Controller;
 
 class Index extends Common
 {
-    public function index(){
+    public function index()
+    {
         return $this->fetch();
     }
 
-    public function  home(){
+    public function home()
+    {
         return $this->fetch("console");
     }
 }

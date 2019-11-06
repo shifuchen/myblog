@@ -11,10 +11,13 @@ namespace app\admin\controller;
 
 class System extends Common
 {
-    public function website(){
+    public function website()
+    {
         return $this->fetch("website");
     }
-    public function email(){
+
+    public function email()
+    {
         return $this->fetch("email");
     }
 }

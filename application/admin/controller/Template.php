@@ -11,10 +11,13 @@ namespace app\admin\controller;
 
 class Template extends Common
 {
-    public function personalpage(){
+    public function personalpage()
+    {
         return $this->fetch("personalpage");
     }
-    public function addresslist(){
+
+    public function addresslist()
+    {
         return $this->fetch("addresslist");
     }
 }
