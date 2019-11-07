@@ -15,6 +15,13 @@
 
 <div class="layui-form" lay-filter="layuiadmin-form-tags" id="layuiadmin-app-form-tags"
      style="padding-top: 30px; text-align: center;">
+    <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label">分类名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="id"  placeholder="请输入ID" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">分类名</label>
         <div class="layui-input-inline">
@@ -33,6 +40,13 @@
     }).use(['index', 'form'], function () {
         var $ = layui.$
             , form = layui.form;
+
+        var data={$tagsData};
+        console.log(data);
+        form.val('layuiadmin-form-tags',{
+            id:data.id,
+            tags:data.tags
+        });
     })
 </script>
 </body>

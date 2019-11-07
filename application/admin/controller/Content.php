@@ -35,9 +35,18 @@ class Content extends Common
         return $this->fetch("tags");
     }
 
-    public function tagsForm()
+    public function tagsForm($id = null)
     {
-        return $this->fetch("tagsform");
+        if ($id != null) {
+            $tagsData  = Db::name("tags")->where('id', $id)->find();
+            $tagsData  = json_encode($tagsData, true);
+            $tiaozhuan = $this->fetch('tagsform', ['tagsData' => $tagsData]);
+        } else {
+            $tiaozhuan = $this->fetch('tagsform', ['tagsData' => "''"]);
+        }
+
+        Log::error($tiaozhuan);
+        return $tiaozhuan;
     }
 
     public function contentComment()
@@ -171,6 +180,45 @@ class Content extends Common
         } else {
             $result['code'] = 10050;
             $result['msg']  = "分类添加失败!";
+        }
+        return json($result);
+    }
+
+    public function tagsEdit(Request $request)
+    {
+        $result = null;
+        $count  = 0;
+        $data=$request->get();
+        $count = Db::name("tags")->where('id', $data['id'])->update($data);
+        if ($count > 0) {
+            $result['code'] = 0;
+            $result['msg']  = "标签已修改";
+        } else {
+            $result['code'] = 100030;
+            $result['msg']  = "搞错了!";
+        }
+
+        return $result;
+    }
+
+    public function tagsDel(Request $request)
+    {
+        $data   = $request->post();
+        $result = null;
+        $count  = 0;
+        $data   = Db::name('tags')->where('id', $data['id'])->find();
+        if (!empty($data)) {
+            $count = Db::name("tags")->where('id', $data['id'])->delete();
+            if ($count > 0) {
+                $result['code'] = 0;
+                $result['msg']  = "数据已删除!";
+            } else {
+                $result['code'] = 10020;
+                $result['msg']  = "数据删除错误,请刷新重试!";
+            }
+        } else {
+            $result['code'] = 10021;
+            $result['msg']  = "没有查到该数据,请重新刷新!";
         }
         return json($result);
     }
