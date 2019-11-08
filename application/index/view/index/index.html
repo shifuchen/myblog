@@ -14,11 +14,15 @@
 </head>
 <style>
     #content{
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
+        word-wrap: break-word;
+        word-break: break-all;
+        text-indent:2em;
     }
-
+    #content:hover{
+        text-overflow:inherit;
+        overflow: visible;
+        white-space: pre-line;
+    }
 </style>
 <body>
 <div class="header">
@@ -84,8 +88,8 @@
                             <div class="item-cont">
                                 <h3>{$content.title}<button class="layui-btn layui-btn-danger new-icon">new</button></h3>
                                 <h5>{$content.label}</h5>
-                                <p id="content">{$content.content}</p>
-                                <a href="{:url('index/index/details')}" class="go-icon"></a>
+                                <p id="content">{$content.description}</p>
+                                <a href="{:url('index/index/details')}?id={$content.id}" class="go-icon"></a>
                             </div>
                         </div>
                     </div>

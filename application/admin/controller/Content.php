@@ -86,6 +86,7 @@ class Content extends Common
             'author',
             'content',
             'status',
+            'description',
             'FROM_UNIXTIME(createtime,"%Y-%m-%d") as createtime',
             'FROM_UNIXTIME(updatetime,"%Y-%m-%d") as updatetime',
         ];
@@ -106,7 +107,7 @@ class Content extends Common
         $data   = $request->post();
         $count  = Db::name("content")->insert(['label'     => $data['label'], 'title' => $data['title'], 'author' => $data['author'],
                                                'author_id' => Session::get("uid"), 'content' => $data['content'], 'label_id' => $data['label_id'], 'createtime' => time(), 'updatetime' => time()
-            , 'status'                                     => '待发布']);
+            , 'status'                                     => '待发布','description'=>$data['description']]);
         $result = null;
         if ($count > 0) {
             $result['code'] = 0;

@@ -39,6 +39,13 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">文章描述</label>
+        <div class="layui-input-inline">
+            <input type="text" name="description" lay-verify="required" placeholder="请输入文章描述" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">文章内容</label>
         <div class="layui-input-inline">
             <textarea id="content" style="display: none;" name="content" lay-verify="content"></textarea>
@@ -116,7 +123,8 @@
                 'title': contentData.title,
                 'content': contentData.content,
                 'label': contentData.label_id,
-                'status': contentData.status
+                'status': contentData.status,
+                'description':contentData.description
             });
         }
         layEdit.build('content', {
