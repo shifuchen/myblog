@@ -54,6 +54,11 @@ class Content extends Common
         return $this->fetch("comment");
     }
 
+    public function addComment(Request $request){
+        $data=$request->post();
+        return json($data);
+    }
+
     public function contForm()
     {
         return $this->fetch("contform");
