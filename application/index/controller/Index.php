@@ -9,10 +9,8 @@ class Index extends Controller
 {
     public function index()
     {
-        $data=Db::name("content")->paginate(10);
-        $page = $data->render();
-        Log::error($page);
-        return $this->fetch("index",['list'=>$data,'page'=>$page]);
+        $data=Db::name("content")->paginate(1);
+        return $this->fetch("index",['list'=>$data]);
     }
 
     public function details(){

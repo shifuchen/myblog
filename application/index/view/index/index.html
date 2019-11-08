@@ -14,14 +14,9 @@
 </head>
 <style>
     #content{
-        word-wrap: break-word;
-        word-break: break-all;
-        text-indent:2em;
-    }
-    #content:hover{
-        text-overflow:inherit;
-        overflow: visible;
-        white-space: pre-line;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        word-wrap:break-word;
     }
 </style>
 <body>
@@ -96,8 +91,10 @@
                 </div>
             </div>
             {/volist}
-        <div id="dome" style="text-align: center;"></div>
-    </div>
+        <div id="demo" class="layui-box layui-laypage layui-laypage-default">
+            {$list->render()}
+        </div>
+        </div>
 </div>
 
 <div class="footer-wrap">
@@ -118,16 +115,16 @@
 </div>
 <script type="text/javascript" src="__STATIC__/res/layui/layui.js"></script>
 <script type="text/javascript">
-    layui.config({
-        base: '__STATIC__/res/js/util/'
-    }).use(['element','laypage','jquery','menu'],function(){
-        element = layui.element,laypage = layui.laypage,$ = layui.$,menu = layui.menu;
-        laypage.render({
-            elem: 'demo'
-            ,count: 70 //数据总数，从服务端得到
-        });
-        menu.init();
-    })
+    // layui.config({
+    //     base: '__STATIC__/res/js/util/'
+    // }).use(['element','laypage','jquery','menu'],function(){
+    //     element = layui.element,laypage = layui.laypage,$ = layui.$,menu = layui.menu;
+    //     laypage.render({
+    //         elem: 'demo'
+    //         ,count: 70 //数据总数，从服务端得到
+    //     });
+    //     menu.init();
+    // })
 </script>
 </body>
 </html>
