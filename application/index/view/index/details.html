@@ -24,18 +24,18 @@
         </a>
     </h1>
     <div class="nav">
-        <a href="index.html">文章</a>
-        <a href="whisper.html">微语</a>
-        <a href="leacots.html">留言</a>
-        <a href="album.html">相册</a>
-        <a href="about.html"  class="active">关于</a>
+        <a href="{:url('index/index/index')}">文章</a>
+        <a href="{:url('index/whisper/whisper')}">微语</a>
+        <a href="{:url('index/leacots/leacots')}">留言</a>
+        <a href="{:url('index/album/album')}">相册</a>
+        <a href="{:url('index/about/about')}">关于</a>
     </div>
     <ul class="layui-nav header-down-nav">
-        <li class="layui-nav-item"><a href="index.html" class="active">文章</a></li>
-        <li class="layui-nav-item"><a href="whisper.html">微语</a></li>
-        <li class="layui-nav-item"><a href="leacots.html">留言</a></li>
-        <li class="layui-nav-item"><a href="album.html">相册</a></li>
-        <li class="layui-nav-item"><a href="about.html"  class="active">关于</a></li>
+        <li class="layui-nav-item"><a href="{:url('index/index/index')}">文章</a></li>
+        <li class="layui-nav-item"><a href="{:url('index/whisper/whisper')}">微语</a></li>
+        <li class="layui-nav-item"><a href="{:url('index/leacots/leacots')}">留言</a></li>
+        <li class="layui-nav-item"><a href="{:url('index/album/album')}">相册</a></li>
+        <li class="layui-nav-item"><a href="{:url('index/about/about')}">关于</a></li>
     </ul>
     <p class="welcome-text">
         欢迎来到<span class="name">臣哥</span>的博客~
@@ -146,7 +146,6 @@
             <p class="ct">{{d.cont}}</p>
         </div>
     </div>
-
 </script>
 <div class="footer-wrap">
     <div class="footer w1000">
@@ -171,7 +170,7 @@
 
     layui.config({
         base: '__STATIC__/res/js/util/'
-    }).use(['element','laypage','form','menu'],function(){
+    }).use(['element','laypage','form','menu','jquery'],function(){
         element = layui.element,laypage = layui.laypage,form = layui.form,menu = layui.menu;
         laypage.render({
             elem: 'demo'
@@ -179,8 +178,8 @@
         });
         menu.init();
         menu.submit();
-        console.log(formAtDate({$list['createtime']}));
-        $("#time").html(formAtDate({$list['createtime']}));
+        var time=document.getElementById("time");
+        time.innerHTML=formAtDate({$list['createtime']});
     });
 </script>
 </body>
