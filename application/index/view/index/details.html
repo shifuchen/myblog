@@ -13,6 +13,31 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 </head>
+<style>
+    #content {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+    }
+    #content:hover {
+        width: auto;
+    }
+    #content:hover{
+        text-overflow:inherit;
+        overflow: visible;
+        white-space: pre-line;     /*合并空白符序列，但是保留换行符。*/
+    }
+    .layui-nav .layui-nav-item a{
+        color: #0C0C0C;
+    }
+    .layui-nav .layui-nav-item a:hover{
+        color: #3f2863;
+        font-weight:bold;
+    }
+    .header .nav a:hover{
+        font-weight:bold;
+    }
+</style>
 <body>
 <div class="header">
     <div class="menu-btn">
@@ -31,18 +56,21 @@
         <a href="{:url('index/album/album')}">相册</a>
         <a href="{:url('index/about/about')}">关于</a>
     </div>
-    <ul class="layui-nav header-down-nav">
-        <li class="layui-nav-item"><a href="{:url('index/index/index')}">文章</a></li>
-        <li class="layui-nav-item"><a href="{:url('index/whisper/whisper')}">微语</a></li>
-        <li class="layui-nav-item"><a href="{:url('index/leacots/leacots')}">留言</a></li>
-        <li class="layui-nav-item"><a href="{:url('index/album/album')}">相册</a></li>
-        <li class="layui-nav-item"><a href="{:url('index/about/about')}">关于</a></li>
-    </ul>
-    <p class="welcome-text">
-        欢迎来到<span class="name">臣哥</span>的博客~
-    </p>
+    <div class="welcome-text">
+        <ul class="layui-nav" style="background-color: rgba(0,0,0,0);" >
+            <li class="layui-nav-item"><a href="">注册</a></li>
+            <li class="layui-nav-item"><a href="">登录</a></li>
+            <li class="layui-nav-item" lay-unselect="">
+                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="javascript:;">退了</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
 </div>
-
 
 <div class="content whisper-content leacots-content details-content">
     <div class="cont w1000">
@@ -72,7 +100,9 @@
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block" style="text-align: right;">
-                                        <button class="layui-btn definite " lay-submit lay-filter="LAY-comment-submit">確定</button>
+                                        <button class="layui-btn definite " lay-submit lay-filter="LAY-comment-submit">
+                                            確定
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -138,9 +168,37 @@
     layui.config({
         base: '__STATIC__/res/js/util/'
     }).use(['element', 'laypage', 'form', 'menu', 'jquery'], function () {
-        element = layui.element, laypage = layui.laypage, form = layui.form, menu = layui.menu;
+        element = layui.element, laypage = layui.laypage, form = layui.form, menu = layui.menu,$ = layui.$;
         form.on('submit(LAY-comment-submit)', function (obj) {
-            console.log(obj.field);
+            obj.field['content_id'] = {$list['id']};
+            $.ajax({
+                url: "{:url('index/index/addComment')}",
+                type: 'post',
+                data: obj.field,
+                beforeSend: function () {
+                    this.layerIndex = layer.load(0, {shade: [0.5, '#393D49']});
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        layer.msg(data.msg, {
+                            icon: 6,
+                            time: 1000
+                        }, function () {
+                            location.reload();
+                        });//成功的表情
+                    } else {
+                        layer.msg(data.msg, {
+                            icon: 5,//失败的表情
+                            time: 3000 //1秒关闭（如果不配置，默认是3秒）
+                        }, function () {
+                            location.reload();
+                        });
+                    }
+                },
+                complete: function () {
+                    layer.close(this.layerIndex);
+                },
+            });
         });
 
         var time = document.getElementById("time");
