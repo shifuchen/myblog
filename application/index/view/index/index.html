@@ -19,23 +19,28 @@
         text-overflow: ellipsis;
         word-wrap: break-word;
     }
+
     #content:hover {
         width: auto;
     }
-    #content:hover{
-        text-overflow:inherit;
+
+    #content:hover {
+        text-overflow: inherit;
         overflow: visible;
-        white-space: pre-line;     /*合并空白符序列，但是保留换行符。*/
+        white-space: pre-line; /*合并空白符序列，但是保留换行符。*/
     }
-    .layui-nav .layui-nav-item a{
+
+    .layui-nav .layui-nav-item a {
         color: #0C0C0C;
     }
-    .layui-nav .layui-nav-item a:hover{
+
+    .layui-nav .layui-nav-item a:hover {
         color: #3f2863;
-        font-weight:bold;
+        font-weight: bold;
     }
-    .header .nav a:hover{
-        font-weight:bold;
+
+    .header .nav a:hover {
+        font-weight: bold;
     }
 </style>
 <body>
@@ -57,7 +62,7 @@
         <a href="{:url('index/about/about')}">关于</a>
     </div>
     <div class="welcome-text">
-        <ul class="layui-nav" style="background-color: rgba(0,0,0,0);" >
+        <ul class="layui-nav" style="background-color: rgba(0,0,0,0);">
             <li class="layui-nav-item"><a href="">注册</a></li>
             <li class="layui-nav-item"><a href="">登录</a></li>
             <li class="layui-nav-item" lay-unselect="">
@@ -96,25 +101,25 @@
         </div>
         <div class="list-item">
             {volist name='list' id='content'}
-            <div class="item">
-                <div class="layui-fluid">
-                    <div class="layui-row">
-                        <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
-                            <div class="img"><img src="__STATIC__/res/img/sy_img1.jpg" alt=""></div>
-                        </div>
-                        <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
-                            <div class="item-cont">
-                                <h3>{$content.title}
-                                    <button class="layui-btn layui-btn-danger new-icon">new</button>
-                                </h3>
-                                <h5>{$content.label}</h5>
-                                <p id="content">{$content.description}</p>
-                                <a href="{:url('index/index/details')}?id={$content.id}" class="go-icon"></a>
+                <div class="item">
+                    <div class="layui-fluid">
+                        <div class="layui-row">
+                            <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
+                                <div class="img"><img src="__STATIC__/res/img/sy_img1.jpg" alt=""></div>
+                            </div>
+                            <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
+                                <div class="item-cont">
+                                    <h3>{$content.title}
+                                        <button class="layui-btn layui-btn-danger new-icon">new</button>
+                                    </h3>
+                                    <h5>{$content.label}</h5>
+                                    <p id="content">{$content.description}</p>
+                                    <a href="{:url('index/index/details')}?id={$content.id}" class="go-icon"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {/volist}
             <div id="demo" class="layui-box layui-laypage layui-laypage-default">
                 {$list->render()}
@@ -142,8 +147,8 @@
     <script type="text/javascript">
         layui.config({
             base: '__STATIC__/res/js/util/'
-        }).use(['element','laypage','jquery','menu'],function(){
-            element = layui.element,laypage = layui.laypage,$ = layui.$,menu = layui.menu;
+        }).use(['element', 'laypage', 'jquery', 'menu'], function () {
+            element = layui.element, laypage = layui.laypage, $ = layui.$, menu = layui.menu;
             menu.init();
         })
     </script>
