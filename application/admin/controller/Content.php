@@ -280,4 +280,18 @@ class Content extends Common
 
     }
 
+    public function commDel(Request $request){
+        $data=$request->post();
+        $result=null;
+        $count=Db::name('comment')->where('id',$data['id'])->delete();
+        if($count>0){
+            $result['code']=0;
+            $result['msg']="数据已删除！";
+        }else{
+            $result['code']=10030;
+            $result['msg']="数据删除报错！";
+        }
+        return json($result);
+    }
+
 }
