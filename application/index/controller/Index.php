@@ -20,7 +20,8 @@ class Index extends Controller
     {
         $contentDetail   = Db::name("content")->where('id', input('id'))->find();
         $field           = ['commentator', 'commentator_id', 'commcontent', 'content_id', 'FROM_UNIXTIME(createtime,"%Y-%m-%d") as createtime'];
-        $contentCommlist = Db::name("comment")->where('content_id', input('id'))->field($field)->select();
+
+        $contentCommlist = Db::name("comment")->where(['content_id'=>input('id'),'type'=>'文章' ])->field($field)->select();
         $contentCommlist['count'] = Db::name("comment")->where('content_id', input('id'))->field($field)->count();
             Log::error($contentCommlist);
         return $this->fetch("details", ['list' => $contentDetail, 'comments' => $contentCommlist]);
@@ -38,7 +39,7 @@ class Index extends Controller
 //        } else {
         $count = Db::name("comment")->insert(['commentator'    => $userSession['username'],
                                               'commentator_id' => $userSession['id'], 'commcontent' => $data['desc'],
-                                              'content_id'     => $data['content_id'], 'createtime' => time(), 'updatetime' => time()]);
+                                              'content_id'     => $data['content_id'], 'createtime' => time(), 'updatetime' => time(),'type'=>'文章']);
         if ($count > 0) {
             $result['code'] = 0;
             $result['msg']  = '添加成功';
