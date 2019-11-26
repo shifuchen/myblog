@@ -20,6 +20,7 @@ class Whisper extends Controller
     public function whisper(){
         $field           = ['id','createuser', 'createuserid', 'content', 'weiimg', 'FROM_UNIXTIME(createtime,"%Y-%m-%d %T") as createtime','heatnum','writenum'];
         $dataList=Db::name('whisper')->field($field)->paginate(6);
+        $commList=Db::name("comment")->where('type','微语')->select();
         return $this->fetch("whisper",['dataList'=>$dataList]);
     }
 

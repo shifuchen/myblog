@@ -146,10 +146,16 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="__STATIC__/res/layui/layui.js"></script>
 <script type="text/javascript" src="__STATIC__/res/js/util/util.js"></script>
 <script type="text/javascript">
+    document.oncontextmenu = function(){ return false; };
+    // 禁止文字选择
+    document.onselectstart = function(){ return false; };
+    // 禁止复制
+    document.oncopy = function(){ return false; };
+    // 禁止剪切
+    document.oncut = function(){ return false; };
     layui.config({
         base: '__STATIC__/res/js/util/'
     }).use(['element', 'laypage', 'form', 'menu', 'jquery'], function () {

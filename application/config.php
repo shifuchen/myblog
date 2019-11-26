@@ -246,9 +246,9 @@ return [
     ],
     'captcha' => [
         'codeSet' => '2345678abcdefhijkpqrstACDEFGHIJKLMNOP',
-        'fontSize' => 16,
+        'fontSize' => 15,
         //是否画混扰曲线
-        'useCurve' => true,
+        'useCurve' => false,
         'imageH' => 30,
         'imageW' => 140,
         'length' => 4,
