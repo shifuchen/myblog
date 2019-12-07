@@ -82,7 +82,7 @@ class Content extends Common
             $where['title'] = input('get.title');
         }
         if (input("get.label") != 0) {
-            $where['label'] = input("label");
+            $where['label_id'] = input("label");
         }
         $field         = [
             'id',
